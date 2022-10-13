@@ -6,6 +6,7 @@ class Constants {
 
         // Everything
         const val ONECALL = "onecall"
+        const val ADMIN = "cities"
 
     }
 }

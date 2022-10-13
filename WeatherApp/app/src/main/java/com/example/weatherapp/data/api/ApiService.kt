@@ -1,6 +1,7 @@
 package com.example.weatherapp.data.api
 
-import com.example.weatherapp.data.model.WeatherModel
+import com.example.weatherapp.data.model.CityModel.CitiesModel
+import com.example.weatherapp.data.model.WeatherModel.WeatherModel
 import com.example.weatherapp.data.utils.Constants
 import retrofit2.Call
 import retrofit2.http.GET
@@ -15,4 +16,10 @@ interface ApiService {
         @Query("units") units: String,
         //@Query("exclude") exclude: String
     ): Call<WeatherModel>
+
+@GET(Constants.ADMIN)
+    fun getCities(
+    @Query("countryIds") countryIds: String,
+    ): Call<CitiesModel>
+
 }

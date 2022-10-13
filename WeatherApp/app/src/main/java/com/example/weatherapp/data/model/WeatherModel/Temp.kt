@@ -1,4 +1,4 @@
-package com.example.weatherapp.data.model
+package com.example.weatherapp.data.model.WeatherModel
 
 data class Temp(
     val day: Double,

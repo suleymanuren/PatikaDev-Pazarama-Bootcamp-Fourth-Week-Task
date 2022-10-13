@@ -2,26 +2,23 @@ package com.example.weatherapp.views
 
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.animation.doOnEnd
-import androidx.navigation.NavController
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.weatherapp.R
+import com.example.weatherapp.data.model.CityModel.CitiesModel
 import com.example.weatherapp.data.api.ApiClient
-import com.example.weatherapp.data.model.WeatherModel
+import com.example.weatherapp.data.local.ClientPreferences
+import com.example.weatherapp.data.local.DataStoreManager
+import com.example.weatherapp.data.model.WeatherModel.WeatherModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+
 
 class MainActivity : Activity() {
     private lateinit var nextDay1 : TextView
@@ -39,12 +36,15 @@ class MainActivity : Activity() {
     private lateinit var nextDay1Icon : ImageView
     private lateinit var nextDay2Icon : ImageView
     private lateinit var nextDay3Icon : ImageView
+    private lateinit var autoCompleteTextView: AutoCompleteTextView
+    private lateinit var clientPreferences: ClientPreferences
+    private lateinit var dataStoreManager: DataStoreManager
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_weather)
         getApiService()
+        getCities()
         nextDay1 = findViewById(R.id.nextDay1)
         nextDay2 = findViewById(R.id.nextDay2)
         nextDay3 = findViewById(R.id.nextDay3)
@@ -60,6 +60,9 @@ class MainActivity : Activity() {
         nextDay1Icon = findViewById(R.id.nextDay1Icon)
         nextDay2Icon = findViewById(R.id.nextDay2Icon)
         nextDay3Icon = findViewById(R.id.nextDay3Icon)
+        autoCompleteTextView = findViewById(R.id.autoTextView)
+
+        //SPLASH SCREEN
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             // Create your custom animation.
             val slideUp = ObjectAnimator.ofFloat(
@@ -70,18 +73,13 @@ class MainActivity : Activity() {
             )
             slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = 3000
-
-
-
             // Run your animation.
             slideUp.start()
-
         }
 
-
+        // MANUALLY WRITING NEXT 3 DAYS TO SCREEN
         val calendar = Calendar.getInstance()
         val day = calendar[Calendar.DAY_OF_WEEK]
-
         when (day) {
             Calendar.SUNDAY -> {
                 nextDay1.text = "Monday"
@@ -118,13 +116,38 @@ class MainActivity : Activity() {
                 nextDay2.text = "Monday"
                 nextDay3.text = "Tuesday"
             }
-
         }
+
+        clientPreferences = ClientPreferences(this)
+        dataStoreManager = DataStoreManager(this)
 
     }
 
+    private  fun getCities(){
+            ApiClient.getCitiesService().getCities("tr").enqueue(object : Callback<CitiesModel>{
+       override fun onResponse(call: Call<CitiesModel>, response: Response<CitiesModel>) {
+           if (response.isSuccessful) {
+                val cityList = response.body()?.data?.map { it.name }
+               cityList?.let {
+                   val adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_list_item_1, it)
+                   autoCompleteTextView.setAdapter(adapter)
+                 autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                     val selectedItem = parent.getItemAtPosition(position).toString()
+                     val selectedlat = response.body()?.data?.get(position)?.latitude
+                     val selectedlon = response.body()?.data?.get(position)?.longitude
+                     clientPreferences.setCityLatitude(selectedlat.toString())
+                     clientPreferences.setCityLongitude(selectedlon.toString())
+                 }
+               }
+           }
+       }
+       override fun onFailure(call: Call<CitiesModel>, t: Throwable) {
+            Log.d("DENEME2", "onFailure: ${t.message}")
+       }
+   })
+}
     private fun getApiService() {
-        ApiClient.getApiService().getWeathers("41.01384","28.94966","tr","metric").enqueue(object : Callback<WeatherModel> {
+        ApiClient.getApiService().getWeathers("41.015137","28.979530","tr","metric").enqueue(object : Callback<WeatherModel> {
             override fun onResponse(call: Call<WeatherModel>, response: Response<WeatherModel>) {
                 if (response.isSuccessful) {
                     Log.d("DENEME", "onResponse: ${response.body()?.daily}")
@@ -147,11 +170,10 @@ class MainActivity : Activity() {
             }
             override fun onFailure(call: Call<WeatherModel>, t: Throwable) {
                 Log.d("DENEME", "onResponse: ${t.message}")
-
             }
         })
-    }
-    }
+      }
+}
 
 
 

@@ -10,5 +10,16 @@
         android:name="com.example.weatherapp.views.WeatherFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_weather">
+        <argument
+            android:name="cityModel"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_weatherFragment_to_specialCityFragment"
+            app:destination="@id/specialCityFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/specialCityFragment"
+        android:name="com.example.weatherapp.views.SpecialCityFragment"
+        android:label="SpecialCityFragment" />
 </navigation>

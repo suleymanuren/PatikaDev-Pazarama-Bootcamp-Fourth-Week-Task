@@ -44,6 +44,10 @@ class WeatherFragment : Fragment() {
         setupViews(view)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     private fun setupViews(view: View) {
         nextDay1 = view.findViewById(R.id.nextDay1)
         nextDay2 = view.findViewById(R.id.nextDay2)
@@ -60,8 +64,6 @@ class WeatherFragment : Fragment() {
         nextDay1Icon = view.findViewById(R.id.nextDay1Icon)
         nextDay2Icon = view.findViewById(R.id.nextDay2Icon)
         nextDay3Icon = view.findViewById(R.id.nextDay3Icon)
-
-
     }
 
 

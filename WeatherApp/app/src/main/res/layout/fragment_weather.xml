@@ -5,7 +5,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:background="@color/grey"
-        android:layout_height="wrap_content">
+        android:visibility="visible"
+        android:layout_height="match_parent">
+
         <include
             android:id="@+id/tool_bar"
             layout="@layout/toolbar">
@@ -14,19 +16,35 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="52dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tool_bar">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <AutoCompleteTextView
+                    android:id="@+id/autoTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:hint="Search City"/>
+
+                <Button
+                    android:id="@+id/btnSearch"
+                    android:text="Ara"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
                 android:id="@+id/cityText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:textSize="30sp"
                 tools:text="Istanbul" />
@@ -34,13 +52,13 @@
             <ImageView
                 android:id="@+id/tempIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 tools:src="@drawable/ic_baseline_search_24" />
 
             <TextView
                 android:id="@+id/tempText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="5°"
                 android:textColor="@color/black"
                 android:textSize="30sp" />
@@ -48,10 +66,12 @@
 
 
         <LinearLayout
+            android:layout_marginBottom="100dp"
+
             android:paddingLeft="15dp"
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
             android:divider="@drawable/empty_tall_divider"
             android:orientation="vertical"
@@ -99,7 +119,7 @@
             <TextView
                 android:id="@+id/nextDay1Day"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="5°"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
@@ -108,7 +128,7 @@
 
                 android:id="@+id/nextDay1Nigth"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="5°"
                 android:textSize="24sp" />
 
@@ -135,7 +155,7 @@
             <TextView
                 android:id="@+id/nextDay2Day"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="5°"
                 android:textSize="24sp"  />
@@ -144,7 +164,7 @@
 
                 android:id="@+id/nextDay2Nigth"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="5°"
                 android:textSize="24dp"  />
         </LinearLayout>
@@ -168,14 +188,14 @@
             <TextView
                 android:id="@+id/nextDay3Day"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="5°"
                 android:textSize="24dp" />
             <TextView
                 android:id="@+id/nextDay3Nigth"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="#808080"
                 android:text="5°"
                 android:textSize="24dp"  />
@@ -190,7 +210,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <View
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0.5dp"
                 android:background="#808080" />
         </LinearLayout>
