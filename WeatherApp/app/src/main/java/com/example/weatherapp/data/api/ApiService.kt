@@ -20,6 +20,7 @@ interface ApiService {
 @GET(Constants.ADMIN)
     fun getCities(
     @Query("countryIds") countryIds: String,
+    @Query("limit") limit: String,
     ): Call<CitiesModel>
 
 }

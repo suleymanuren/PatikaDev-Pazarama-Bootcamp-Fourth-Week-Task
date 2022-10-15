@@ -1,7 +1,6 @@
 package com.example.weatherapp.data.interceptor
 
 import com.example.weatherapp.BuildConfig
-import com.example.weatherapp.data.utils.Constants.Companion.API_KEY
 import okhttp3.Interceptor
 import okhttp3.Response
 

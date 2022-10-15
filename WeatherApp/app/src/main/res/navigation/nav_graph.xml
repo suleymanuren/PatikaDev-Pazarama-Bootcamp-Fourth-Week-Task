@@ -2,16 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/weatherFragment">
+    app:startDestination="@id/splashFragment">
 
 
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.example.weatherapp.views.WeatherFragment"
-        android:label="HomeFragment"
+        android:label="WeatherFragment"
         tools:layout="@layout/fragment_weather">
         <argument
-            android:name="cityModel"
+            android:name="cityLat"
+            app:argType="string" />
+        <argument
+            android:name="cityLong"
+            app:argType="string" />
+        <argument
+            android:name="cityName"
             app:argType="string" />
         <action
             android:id="@+id/action_weatherFragment_to_specialCityFragment"
@@ -19,7 +25,17 @@
     </fragment>
 
     <fragment
+        tools:layout="@layout/fragment_special_city"
         android:id="@+id/specialCityFragment"
         android:name="com.example.weatherapp.views.SpecialCityFragment"
         android:label="SpecialCityFragment" />
+    <fragment
+        tools:layout="@layout/fragment_splash_screen"
+        android:id="@+id/splashFragment"
+        android:name="com.example.weatherapp.views.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
 </navigation>

@@ -20,7 +20,6 @@ class ApiClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getHttpClient())
                     .build()
-
                 apiService = retrofit.create(ApiService::class.java)
             }
             return apiService
@@ -28,7 +27,7 @@ class ApiClient {
         fun getCitiesService(): ApiService {
             if (!::apiService2.isInitialized) {
                 val request = Retrofit.Builder()
-                    .baseUrl("https://wft-geo-db.p.rapidapi.com/v1/geo/")
+                    .baseUrl(BuildConfig.CITY_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getHttpClient2())
                     .build()

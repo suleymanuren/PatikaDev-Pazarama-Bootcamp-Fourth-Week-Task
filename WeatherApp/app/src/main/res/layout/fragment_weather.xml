@@ -27,18 +27,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <AutoCompleteTextView
+
+                 <AutoCompleteTextView
                     android:id="@+id/autoTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="20dp"
                     android:hint="Search City"/>
-
-                <Button
-                    android:id="@+id/btnSearch"
-                    android:text="Ara"
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+android:text="Free city database only \u2033İzmir, Amasya, Diyarbakır, Bilecik, Aydın, Karabük, Hatay, Edirne\u2033 cities are coming to in autocomplate item because it gives limited api."/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
