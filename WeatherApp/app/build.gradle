@@ -18,6 +18,10 @@ android {
     }
 
     buildTypes {
+        def localPropertiesFile = rootProject.file("local.properties")
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(localPropertiesFile))
+        
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -26,10 +30,13 @@ android {
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "API_KEY", localProperties['API_KEY']
+            buildConfigField "String", "CITY_KEY", localProperties['CITY_KEY']
+
             buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
             buildConfigField "String", "CITY_URL", "\"https://wft-geo-db.p.rapidapi.com/v1/geo/\""
-            buildConfigField "String", "API_KEY", "\"2dc82a15c768eaaea0f3a871f45a36fc\""
-            buildConfigField "String", "CITY_KEY", "\"7413a80555msh6798e4d45e32d3fp1278a7jsn3953d92a9b4b\""
+
         }
 
     }
